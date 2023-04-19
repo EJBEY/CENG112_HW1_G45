@@ -1,18 +1,19 @@
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
+
 public class TrashCan {
     private static final int MAX_SIZE = 450;
     public static ArrayList<Garbage> garbageList;
 
-    
     static Random rand = new Random();
     static int[] sizes = {5,10,15};
-	public static PlasticRecycleBin plasticBin  = new PlasticRecycleBin(sizes[rand.nextInt(3)]);
-	public static PaperRecycleBin paperBin = new PaperRecycleBin(sizes[rand.nextInt(3)]);
-	public static GlassRecycleBin glassBin = new GlassRecycleBin(sizes[rand.nextInt(3)]);
-	public static FabricRecycleBin fabricBin = new FabricRecycleBin(sizes[rand.nextInt(3)]);
-	public static OrganicRecycleBin organicBin = new OrganicRecycleBin(sizes[rand.nextInt(3)]);
-	public static MetalRecycleBin metalBin = new MetalRecycleBin(sizes[rand.nextInt(3)]);
+    public static PlasticRecycleBin plasticBin  = new PlasticRecycleBin(sizes[rand.nextInt(3)]);
+    public static PaperRecycleBin paperBin = new PaperRecycleBin(sizes[rand.nextInt(3)]);
+    public static GlassRecycleBin glassBin = new GlassRecycleBin(sizes[rand.nextInt(3)]);
+    public static FabricRecycleBin fabricBin = new FabricRecycleBin(sizes[rand.nextInt(3)]);
+    public static OrganicRecycleBin organicBin = new OrganicRecycleBin(sizes[rand.nextInt(3)]);
+    public static MetalRecycleBin metalBin = new MetalRecycleBin(sizes[rand.nextInt(3)]);
 
     public TrashCan() {
         garbageList = new ArrayList<Garbage>();
@@ -70,20 +71,30 @@ public class TrashCan {
 
     public void displayItems() {
         System.out.println("Trash Can Contents:" + garbageList.size());
-        int amount = 1;
-		for (int i = 0; i < garbageList.size() - 1; i++) {
-
-			if (garbageList.get(i).toString() == garbageList.get(i+1).toString()) {
-				amount++;
-			}
-			else {
-				System.out.printf("%d %s, \n", amount,garbageList.get(i).toString());
-				amount = 1;
-			}
-            
-		}
-        System.out.printf("%d %s \n", amount, garbageList.get(getItemCount() - 1).toString());
+        
+        // Create a new list to hold unique items and their counts
+        List<String> uniqueItems = new ArrayList<>();
+        List<Integer> itemCounts = new ArrayList<>();
+        
+        // Iterate over the garbage list and count the number of occurrences of each item
+        for (Garbage item : garbageList) {
+            String itemName = item.toString();
+            if (uniqueItems.contains(itemName)) {
+                int index = uniqueItems.indexOf(itemName);
+                int count = itemCounts.get(index) + 1;
+                itemCounts.set(index, count);
+            } else {
+                uniqueItems.add(itemName);
+                itemCounts.add(1);
+            }
+        }
+        
+        // Print the unique items and their counts
+        for (int i = 0; i < uniqueItems.size(); i++) {
+            System.out.printf("%d %s, \n", itemCounts.get(i), uniqueItems.get(i));
+        }
     }
+
 
     public void dump() {
         garbageList.clear();

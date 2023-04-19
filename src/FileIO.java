@@ -7,8 +7,10 @@ import java.util.List;
 import java.util.Scanner;
 
 public class FileIO {
-
-    private final String TRASH_CAN_FILE = "C:\\Users\\voyi0\\Downloads\\garbage.txt";
+	
+    private final String TRASH_CAN_FILE = "garbage.txt";
+    
+    //Read "garbage.txt" file and return a TrashCan object.
     public TrashCan readTrashCan() {
         TrashCan trashCan = new TrashCan();
 
@@ -39,7 +41,7 @@ public class FileIO {
 
         return trashCan;
     }
-
+    //Update garbage.txt file
     public boolean updateTrashCan(TrashCan trashCan) {
         try {
             FileWriter writer = new FileWriter(TRASH_CAN_FILE);
@@ -61,9 +63,12 @@ public class FileIO {
                 }
             }
             
-            // Print the unique items and their counts
+            // Write the unique items and their counts
             for (int i = 0; i < uniqueItems.size(); i++) {
-            	writer.write(itemCounts.get(i) + uniqueItems.get(i) + "\n");
+            	writer.write(uniqueItems.get(i) +"," + itemCounts.get(i));
+            	if (i != uniqueItems.size()-1) {
+                	writer.write("\n");
+				}
             }
             writer.close();
             return true;

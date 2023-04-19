@@ -90,11 +90,9 @@ public class PaperRecycleBin implements IBag<Garbage> {
             System.out.println("The paper recycle bin is empty.");
         } else {
             System.out.println("Paper Recycle Bin:" + maxSize);
-            // Create a new list to hold unique items and their counts
             List<String> uniqueItems = new ArrayList<>();
             List<Integer> itemCounts = new ArrayList<>();
             
-            // Iterate over the garbage list and count the number of occurrences of each item
             for (Garbage item : items) {
                 String itemName = item.toString();
                 if (uniqueItems.contains(itemName)) {
@@ -107,7 +105,6 @@ public class PaperRecycleBin implements IBag<Garbage> {
                 }
             }
             
-            // Print the unique items and their counts
             for (int i = 0; i < uniqueItems.size(); i++) {
                 System.out.printf("%d %s, \n", itemCounts.get(i), uniqueItems.get(i));
             }
@@ -131,6 +128,7 @@ public class PaperRecycleBin implements IBag<Garbage> {
         if (targetBin.isFull()) {
             return false;
         }
+        targetBin.add(item);
         remove(item);
         return true;
     }

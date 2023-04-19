@@ -5,9 +5,11 @@ import java.util.Random;
 public class TrashCan {
     private static final int MAX_SIZE = 450;
     public static ArrayList<Garbage> garbageList;
-
+    
+    //Random element for Recycle Bin sizes
     static Random rand = new Random();
     static int[] sizes = {5,10,15};
+    //Recycle Bins
     public static PlasticRecycleBin plasticBin  = new PlasticRecycleBin(sizes[rand.nextInt(3)]);
     public static PaperRecycleBin paperBin = new PaperRecycleBin(sizes[rand.nextInt(3)]);
     public static GlassRecycleBin glassBin = new GlassRecycleBin(sizes[rand.nextInt(3)]);
@@ -71,11 +73,11 @@ public class TrashCan {
 
     public void displayItems() {
         
-        // Create a new list to hold unique items and their counts
+        // Create a new list to hold items and their counts
         List<String> uniqueItems = new ArrayList<>();
         List<Integer> itemCounts = new ArrayList<>();
-        
-        // Iterate over the garbage list and count the number of occurrences of each item
+
+
         for (Garbage item : garbageList) {
             String itemName = item.toString();
             if (uniqueItems.contains(itemName)) {
@@ -90,7 +92,7 @@ public class TrashCan {
         
         // Print the unique items and their counts
         for (int i = 0; i < uniqueItems.size(); i++) {
-            System.out.printf("%d %s, \n", itemCounts.get(i), uniqueItems.get(i));
+            System.out.printf("%s,%d \n", uniqueItems.get(i),itemCounts.get(i));
         }
     }
 
@@ -112,7 +114,6 @@ public class TrashCan {
     public boolean separate(Garbage item) {
 
         if (item.type.equalsIgnoreCase("plastic")) {
-        	
             return transferTo(plasticBin, item);
         } else if (item.type.equalsIgnoreCase("paper")) {
             return transferTo(paperBin, item);

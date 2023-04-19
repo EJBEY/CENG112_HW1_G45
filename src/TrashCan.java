@@ -70,7 +70,6 @@ public class TrashCan {
     }
 
     public void displayItems() {
-        System.out.println("Trash Can Contents:" + garbageList.size());
         
         // Create a new list to hold unique items and their counts
         List<String> uniqueItems = new ArrayList<>();
@@ -102,6 +101,7 @@ public class TrashCan {
 
     public boolean transferTo(IBag<Garbage> targetBag, Garbage item) {
         if (!contains(item)) {
+        	System.out.println("a");
             return false;
         }
         remove(item);
@@ -109,25 +109,21 @@ public class TrashCan {
         return true;
     }
 
-    public static boolean separate(Garbage item) {
+    public boolean separate(Garbage item) {
+
         if (item.type.equalsIgnoreCase("plastic")) {
-            plasticBin.add(item);
-            return true;
+        	
+            return transferTo(plasticBin, item);
         } else if (item.type.equalsIgnoreCase("paper")) {
-            paperBin.add(item);
-            return true;
+            return transferTo(paperBin, item);
         } else if (item.type.equalsIgnoreCase("glass")) {
-            glassBin.add(item);
-            return true;
+            return transferTo(glassBin, item);
         } else if (item.type.equalsIgnoreCase("fabric")) {
-            fabricBin.add(item);
-            return true;
+            return transferTo(fabricBin, item);
         } else if (item.type.equalsIgnoreCase("metal")) {
-            metalBin.add(item);
-            return true;
+            return transferTo(metalBin, item);
         } else if (item.type.equalsIgnoreCase("organic")) {
-            organicBin.add(item);
-            return true;
+            return transferTo(organicBin, item);
         } else {
             return false;
         }

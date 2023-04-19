@@ -1,4 +1,6 @@
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
@@ -36,22 +38,19 @@ public class FileIO {
         return trashCan;
     }
 
-    public boolean updateTrashCan(TrashCan trashCan) {/*
+    public boolean updateTrashCan(TrashCan trashCan) {
         try {
-            FileWriter writer = new FileWriter(TRASH_CAN_FILE,true);
-            BufferedWriter bufferedWriter = new BufferedWriter(writer);
+            FileWriter writer = new FileWriter(TRASH_CAN_FILE);
             for (int i = 0; i < trashCan.getItemCount(); i++) {
-                Garbage garbage = trashCan.removeByIndex(i);
-                i--;
-                writer.write(garbage.getName() + ", " + garbage.getType() + ", 1\n");
+                Garbage garbage = trashCan.garbageList.get(i);
+                writer.write(garbage.name + ", " + garbage.type + "\n");
             }
             writer.close();
             return true;
         } catch (IOException e) {
             System.out.println("Error writing to file: " + TRASH_CAN_FILE);
             return false;
-        }*/
-    	return true;
+        }
     }
 }
 

@@ -1,8 +1,9 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class PaperRecycleBin implements IBag<Garbage> {
 
-	public static PaperRecycleBin instance;
     private final int maxSize;
     private final Garbage[] items;
     private int itemCount;
@@ -11,13 +12,6 @@ public class PaperRecycleBin implements IBag<Garbage> {
         maxSize = size;
         items = new Garbage[maxSize];
         itemCount = 0;
-    }
-
-    public static PaperRecycleBin getInstance() {
-        if (instance == null) {
-            instance = new PaperRecycleBin(450);
-        }
-        return instance;
     }
 
     @Override
@@ -95,9 +89,27 @@ public class PaperRecycleBin implements IBag<Garbage> {
         if (isEmpty()) {
             System.out.println("The paper recycle bin is empty.");
         } else {
-            System.out.println("Paper Recycle Bin:");
-            for (int i = 0; i < itemCount; i++) {
-                System.out.println("- " + items[i].toString());
+            System.out.println("Paper Recycle Bin:" + maxSize);
+            // Create a new list to hold unique items and their counts
+            List<String> uniqueItems = new ArrayList<>();
+            List<Integer> itemCounts = new ArrayList<>();
+            
+            // Iterate over the garbage list and count the number of occurrences of each item
+            for (Garbage item : items) {
+                String itemName = item.toString();
+                if (uniqueItems.contains(itemName)) {
+                    int index = uniqueItems.indexOf(itemName);
+                    int count = itemCounts.get(index) + 1;
+                    itemCounts.set(index, count);
+                } else {
+                    uniqueItems.add(itemName);
+                    itemCounts.add(1);
+                }
+            }
+            
+            // Print the unique items and their counts
+            for (int i = 0; i < uniqueItems.size(); i++) {
+                System.out.printf("%d %s, \n", itemCounts.get(i), uniqueItems.get(i));
             }
         }
     }
@@ -119,7 +131,6 @@ public class PaperRecycleBin implements IBag<Garbage> {
         if (targetBin.isFull()) {
             return false;
         }
-        targetBin.add(item);
         remove(item);
         return true;
     }

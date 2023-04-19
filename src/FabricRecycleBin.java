@@ -2,6 +2,7 @@ import java.util.Random;
 
 public class FabricRecycleBin implements IBag<Garbage> {
 
+	public static FabricRecycleBin instance;
     private final int maxSize;
     private final Garbage[] items;
     private int itemCount;
@@ -12,6 +13,12 @@ public class FabricRecycleBin implements IBag<Garbage> {
         itemCount = 0;
     }
 
+    public static FabricRecycleBin getInstance() {
+        if (instance == null) {
+            instance = new FabricRecycleBin(450);
+        }
+        return instance;
+    }
     @Override
     public boolean add(Garbage newItem) {
         if (isFull()) {
@@ -89,7 +96,7 @@ public class FabricRecycleBin implements IBag<Garbage> {
         } else {
             System.out.println("Fabric Recycle Bin:");
             for (int i = 0; i < itemCount; i++) {
-                System.out.println("- " + items[i].getName());
+                System.out.println("- " + items[i].toString());
             }
         }
     }

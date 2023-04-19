@@ -1,7 +1,7 @@
 import java.util.Random;
 
 public class PlasticRecycleBin implements IBag<Garbage> {
-	public static PlasticRecycleBin instance;
+
     private final int maxSize;
     private final Garbage[] items;
     private int itemCount;
@@ -10,12 +10,6 @@ public class PlasticRecycleBin implements IBag<Garbage> {
         maxSize = size;
         items = new Garbage[maxSize];
         itemCount = 0;
-    }
-    public static PlasticRecycleBin getInstance() {
-        if (instance == null) {
-            instance = new PlasticRecycleBin(450);
-        }
-        return instance;
     }
     @Override
     public boolean add(Garbage newItem) {
@@ -94,7 +88,7 @@ public class PlasticRecycleBin implements IBag<Garbage> {
         } else {
             System.out.println("Plastic Recycle Bin:");
             for (int i = 0; i < itemCount; i++) {
-                System.out.println("- " + items[i].getName());
+                System.out.println("- " + items[i].toString());
             }
         }
     }

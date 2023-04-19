@@ -2,6 +2,7 @@ import java.util.Random;
 
 public class PaperRecycleBin implements IBag<Garbage> {
 
+	public static PaperRecycleBin instance;
     private final int maxSize;
     private final Garbage[] items;
     private int itemCount;
@@ -11,7 +12,13 @@ public class PaperRecycleBin implements IBag<Garbage> {
         items = new Garbage[maxSize];
         itemCount = 0;
     }
-    
+
+    public static PaperRecycleBin getInstance() {
+        if (instance == null) {
+            instance = new PaperRecycleBin(450);
+        }
+        return instance;
+    }
 
     @Override
     public boolean add(Garbage newItem) {
@@ -90,7 +97,7 @@ public class PaperRecycleBin implements IBag<Garbage> {
         } else {
             System.out.println("Paper Recycle Bin:");
             for (int i = 0; i < itemCount; i++) {
-                System.out.println("- " + items[i].getName());
+                System.out.println("- " + items[i].toString());
             }
         }
     }

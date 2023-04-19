@@ -2,6 +2,7 @@ import java.util.Random;
 
 public class MetalRecycleBin implements IBag<Garbage> {
 
+	public static MetalRecycleBin instance;
     private final int maxSize;
     private final Garbage[] items;
     private int itemCount;
@@ -12,6 +13,12 @@ public class MetalRecycleBin implements IBag<Garbage> {
         itemCount = 0;
     }
 
+    public static MetalRecycleBin getInstance() {
+        if (instance == null) {
+            instance = new MetalRecycleBin(450);
+        }
+        return instance;
+    }
     @Override
     public boolean add(Garbage newItem) {
         if (isFull()) {
@@ -89,7 +96,7 @@ public class MetalRecycleBin implements IBag<Garbage> {
         } else {
             System.out.println("Metal Recycle Bin:");
             for (int i = 0; i < itemCount; i++) {
-                System.out.println("- " + items[i].getName());
+                System.out.println("- " + items[i].toString());
             }
         }
     }

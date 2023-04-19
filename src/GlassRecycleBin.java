@@ -2,6 +2,7 @@ import java.util.Random;
 
 public class GlassRecycleBin implements IBag<Garbage>{
 
+	public static GlassRecycleBin instance;
     private final int maxSize;
     private final Garbage[] items;
     private int itemCount;
@@ -89,7 +90,7 @@ public class GlassRecycleBin implements IBag<Garbage>{
         } else {
             System.out.println("Glass Recycle Bin:");
             for (int i = 0; i < itemCount; i++) {
-                System.out.println("- " + items[i].getName());
+                System.out.println("- " + items[i].toString());
             }
         }
     }

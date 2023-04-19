@@ -2,6 +2,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class FileIO {
@@ -41,9 +43,27 @@ public class FileIO {
     public boolean updateTrashCan(TrashCan trashCan) {
         try {
             FileWriter writer = new FileWriter(TRASH_CAN_FILE);
-            for (int i = 0; i < trashCan.getItemCount(); i++) {
-                Garbage garbage = trashCan.garbageList.get(i);
-                writer.write(garbage.name + ", " + garbage.type + "\n");
+
+            // Create a new list to hold unique items and their counts
+            List<String> uniqueItems = new ArrayList<>();
+            List<Integer> itemCounts = new ArrayList<>();
+            
+            // Iterate over the garbage list and count the number of occurrences of each item
+            for (Garbage item : trashCan.garbageList) {
+                String itemName = item.toString();
+                if (uniqueItems.contains(itemName)) {
+                    int index = uniqueItems.indexOf(itemName);
+                    int count = itemCounts.get(index) + 1;
+                    itemCounts.set(index, count);
+                } else {
+                    uniqueItems.add(itemName);
+                    itemCounts.add(1);
+                }
+            }
+            
+            // Print the unique items and their counts
+            for (int i = 0; i < uniqueItems.size(); i++) {
+            	writer.write(itemCounts.get(i) + uniqueItems.get(i) + "\n");
             }
             writer.close();
             return true;
